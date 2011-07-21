@@ -20,3 +20,11 @@ ruby:
     delivered fast, you should add Ruby to your toolbox.
   price: 49.50
   image_url: ruby.png
+
+rails:
+  title: Programming Rails
+  description:
+    Bla bla ba this is the description
+  price: 25.99
+  image_url: ruby.png
+

@@ -9,3 +9,6 @@ one: {}
 #
 two: {}
 #  column: value
+cart_empty_one: {}
+cart_empty_two: {}
+
