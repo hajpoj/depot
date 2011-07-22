@@ -46,8 +46,8 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        zero_count
         format.html { redirect_to(store_url) }
+        format.js {@current_item = @line_item }
         format.xml  { render :xml => @line_item, :status => :created, :location => @line_item }
       else
         format.html { render :action => "new" }
@@ -78,12 +78,38 @@ class LineItemsController < ApplicationController
 
     @line_item = LineItem.find(params[:id])
     @cart = @line_item.cart
-    @product_name = @line_item.product.title;
+    @product_name = @line_item.product.title
     @line_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to(store_url, :notice => "#{@product_name} was deleted.") }
+      format.html { redirect_to(store_url, :notice => "#{@product_name} was removed from cart.") }
+      format.js 
       format.xml  { head :ok }
     end
+  end
+
+  def decrement_quantity
+    @line_item = LineItem.find(params[:id])
+    @cart = @line_item.cart
+
+    @line_item.quantity -= 1 if @line_item.quantity > 0
+    @line_item.destroy if @line_item.quantity == 0
+
+    respond_to do |format|
+      if @line_item.destroyed?
+        format.html { redirect_to(store_url)}
+        format.js
+        format.xml  { head :ok }
+      elsif @line_item.save
+        format.html { redirect_to(store_url)}
+        format.js
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @line_item.errors, :status => :unprocessable_entity }
+      end
+
+    end
+
   end
 end

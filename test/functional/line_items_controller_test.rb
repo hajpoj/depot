@@ -21,7 +21,27 @@ class LineItemsControllerTest < ActionController::TestCase
       post :create, :product_id => products(:ruby).id
     end
 
-    assert_redirected_to cart_path(assigns(:line_item).cart)
+    assert_redirected_to store_path
+  end
+
+  test "should create line_item via ajax" do
+
+    #xhr stands for XMLHttpRequest
+    #Decent info on XHR http://www.allinterview.com/showanswers/70920.html
+    #basically xhr is a request made by javascript / ajax. The controller can handle these differently
+    #Adding :remote => true to a button_to in a .html.erb is making the request to the server a javascript request
+
+    #there is no redirect in this test case cuz we are using ajax to just update the page.
+
+    assert_difference('LineItem.count') do
+      xhr :post, :create, :product_id => products(:ruby).id
+    end
+
+    assert_response :success
+
+    assert_select_rjs :replace_html, 'cart' do
+      assert_select 'tr#current_item td', /Programming Ruby/
+    end
   end
 
   test "should show line_item" do
@@ -41,9 +61,9 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should destroy line_item" do
     assert_difference('LineItem.count', -1) do
-      delete :destroy, :id => @line_item.to_param
+      delete :destroy, :id => line_items(:working).to_param
     end
 
-    assert_redirected_to line_items_path
+    assert_redirected_to store_path
   end
 end

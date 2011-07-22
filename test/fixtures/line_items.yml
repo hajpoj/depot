@@ -7,3 +7,7 @@ one:
 two:
   product_id: 1
   cart_id: 1
+
+working:
+  product: ruby
+  cart: cart_one

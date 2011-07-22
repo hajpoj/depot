@@ -55,6 +55,6 @@ class ProductsControllerTest < ActionController::TestCase
 
   test "Index view: number of links" do
     get :index
-    assert_select '.list_actions', 3
+    assert_select '.list_actions', Product.count
   end
 end

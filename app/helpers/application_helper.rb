@@ -1,10 +1,10 @@
 module ApplicationHelper
 
-  def show_count
-    if session[:counter] >= 5
-      "Visited: " + pluralize(session[:counter], "time")
-    else
-      ""
+  def hidden_div_if(condition, attributes = {}, &block)
+    if condition
+      attributes["style"] = "display: none"
     end
+    content_tag("div", attributes, &block)
   end
+  
 end

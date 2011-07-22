@@ -6,12 +6,19 @@
 
 <% @products.each do |product| %>
     <div class="entry">
-      <%= link_to(image_tag(product.image_url), line_items_path(:product_id => product), :method => :post) %>
+
+      <%# Thought I wanted to use link_to that surrounded the image but that wouldn't work
+      if javascript was disabled, because a link can't do a "POST" (like a form/ button can)
+      more about it here: http://pragprog.com/wikis/wiki/Pt-F-1 (last comment)%>
+
+      <%= form_tag(line_items_path(:product_id => product), :method => :post, :remote => true) do %>
+        <%= image_submit_tag(product.image_url, {:method => :post, :remote => true})%>
+      <% end %>
       <h3><%= product.title %></h3>
       <%= sanitize(product.description) %>
       <div class="price_line">
         <span class="price"><%= number_to_currency(product.price) %></span>
-        <%= button_to 'Add to Cart', line_items_path(:product_id => product) %>
+        <%= button_to 'Add to Cart', line_items_path(:product_id => product), :remote => true %>
       </div>
     </div>
 <% end %>
