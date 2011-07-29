@@ -1,11 +1,17 @@
 Depot::Application.routes.draw do
+  resources :orders
+
   resources :line_items
 
   resources :carts
 
   get "store/index"
 
-  resources :products
+  resources :products do
+    get :who_bought, :on => :member
+  end
+
+  match 'line_items/decrement_quantity/:id' => 'line_items#decrement_quantity'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -13,7 +19,7 @@ Depot::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
-  match 'line_items/decrement_quantity/:id' => 'line_items#decrement_quantity'
+
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

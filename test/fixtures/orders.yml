@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Dave Thomas
+  address: MyText
+  email: dave@example.org
+  pay_type: Check
+
+two:
+  name: Dave Thomas2
+  address: MyText
+  email: dave2@example.org
+  pay_type: Check

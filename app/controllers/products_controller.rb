@@ -80,4 +80,16 @@ class ProductsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #POST /products/3/who_bought.atom
+  def who_bought
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.atom
+      format.xml {render :xml => @product.to_xml(:include => :orders)}
+      format.json {render :json => @product.to_json(:include => :orders)}
+    end
+
+  end
 end

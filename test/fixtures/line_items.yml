@@ -1,12 +1,16 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+
+#product_id refers to the actual id in the database
+#product refers to the name of a product in the products fixture
+
 one:
-  product_id: 1
-  cart_id: 1
+  product: ruby
+  order: one
 
 two:
-  product_id: 1
-  cart_id: 1
+  product: ruby
+  cart: one
 
 working:
   product: ruby

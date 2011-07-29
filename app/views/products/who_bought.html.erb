@@ -1,0 +1,13 @@
+<h1>
+  <%= "People who bought \"#{@product.title}\"" %>
+</h1>
+<%# For these iterators where you iterate over a number of
+ items you need the ".each" at the end or else it won't work.
+ Still not 100% sure why this is how it is.%>
+<% @product.orders.each do |order| %>
+  <h2> <%= "Ordered by #{order.name }"%></h2>
+  <% order.line_items.each do |line_item| %>
+    <p><%= line_item.product.title %></p>
+    <p><%= "How many: #{line_item.quantity}" %></p>
+  <% end %>
+<% end %>
